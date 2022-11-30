@@ -14,11 +14,11 @@ Idea:
 
 
 // Var elements
-let scoresEl = document.querySelector(".highScores");
-let timerEl = document.querySelector(".timeLeft");
+let scoresEl = document.querySelector("#scores");
+let timerEl = document.querySelector("#time");
 let questionsEl = document.querySelector(".questions");
-let startBtn = document.querySelector(".gameStart");
-let answerBtn = document.querySelector("#answers");
+let startBtn = document.querySelector("#start");
+let answerBtn = document.querySelector(".answers");
 let answerBtn1 = document.querySelector("#answer1");
 let answerBtn2 = document.querySelector("#answer2");
 let answerBtn3 = document.querySelector("#answer3");
