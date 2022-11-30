@@ -14,15 +14,18 @@ Idea:
 
 
 // Var elements
-var scoresEl = document.querySelector(".highScores");
-var timerEl = document.querySelector(".timeLeft");
-var questionsEl = document.querySelector(".questions");
-var startBtn = document.querySelector(".gameStart");
-var answerBtn = document.querySelector("#answers");
-
+let scoresEl = document.querySelector(".highScores");
+let timerEl = document.querySelector(".timeLeft");
+let questionsEl = document.querySelector(".questions");
+let startBtn = document.querySelector(".gameStart");
+let answerBtn = document.querySelector("#answers");
+let answerBtn1 = document.querySelector("#answer1");
+let answerBtn2 = document.querySelector("#answer2");
+let answerBtn3 = document.querySelector("#answer3");
+let answerBtn4 = document.querySelector("#answer4");
 
 // Arrays 
-var questions = [
+let questions = [
     {
         question: "",
         answer1: "",
@@ -131,24 +134,47 @@ function timer() {
 }
 
 function theGame() {
-    timer()
+    timer();
     for (let x = 0; x < questions.length; x++)
     {
-        questionsEl.textContent = questions.question;
-        document.getElementById("answer1") = questions.textContent.answer1;
-        document.getElementById("answer2") = questions.textContent.answer2;
-        document.getElementById("answer3") = questions.textContent.answer3;
-        document.getElementById("answer4") = questions.textContent.answer4;
+        questionsEl.textContent = questions[x].question;
+        document.getElementById("answer1") = questions[x].textContent.answer1;
+        document.getElementById("answer2") = questions[x].textContent.answer2;
+        document.getElementById("answer3") = questions[x].textContent.answer3;
+        document.getElementById("answer4") = questions[x].textContent.answer4;
         let correct = 0;
-        answerBtn.addEventListener("click", function(){
-            if (answerBtn === questions.correct)
+        answerBtn1.addEventListener("click", function(){
+            if (answer1 === questions.correct)
+            {
+                correct++;
+            }
+            return correct;
+        })
+        answerBtn2.addEventListener("click", function(){
+            if (answer2 === questions.correct)
+            {
+                correct++;
+            }
+            return correct;
+        })
+        answerBtn3.addEventListener("click", function(){
+            if (answer3 === questions.correct)
+            {
+                correct++;
+            }
+            return correct;
+        })
+        answerBtn4.addEventListener("click", function(){
+            if (answer4 === questions.correct)
             {
                 correct++;
             }
             return correct;
         })
     }
+    endGame();
+    return correct;
 }
 
 
-startBtn.addEventListener("click", theGame())
+startBtn.addEventListener("click", theGame);
