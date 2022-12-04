@@ -27,18 +27,18 @@ let answerBtn4 = document.querySelector("#answer4");
 // Arrays 
 let questions = [
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is the capital of Minnesota",
+        answer1: "Saint Paul",
+        answer2: "Edina",
+        answer3: "Minneapolis",
+        correct: "Saint Paul"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is Minnesota known for?",
+        answer1: "Land of 10,000 lakes.",
+        answer2: "Land of the America's Dairyland.",
+        answer3: "Land of the Free.",
+        correct: "Land of 10,000 lakes."
     },
     {
         question: "",
@@ -125,7 +125,7 @@ function timer() {
     let secondsLeft = 60;
     var timerInterval = setInterval(function() {
         secondsLeft--;
-        timerEl.textContent = secondsLeft + "remaining.";
+        timerEl.textContent = "Time: " + secondsLeft + " seconds remaining.";
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
             endGame();
@@ -138,6 +138,7 @@ function theGame() {
     for (let x = 0; x < questions.length; x++)
     {
         questionsEl.textContent = questions[x].question;
+        document.createElement("li")
         document.getElementById("answer1") = questions[x].textContent.answer1;
         document.getElementById("answer2") = questions[x].textContent.answer2;
         document.getElementById("answer3") = questions[x].textContent.answer3;
@@ -172,9 +173,9 @@ function theGame() {
             return correct;
         })
     }
+    
     endGame();
     return correct;
 }
-
 
 startBtn.addEventListener("click", theGame);

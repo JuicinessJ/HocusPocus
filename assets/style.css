@@ -3,18 +3,11 @@
 }
 
 .main {
-    display: grid;
-    height: 100vh;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: .5fr 1fr 1fr;
-    grid-template-areas: 
-    "header time",
-    "questions questions",
-    "answers answers";
+    
 }
 
 #header {
-
+    
 }
 
 .questions {
