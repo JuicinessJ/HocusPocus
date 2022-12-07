@@ -8,7 +8,7 @@
 6a. If timer was to run out it'll change screen by triggering the endGame function too with amount of questions answered correctly over amount of questions that should've been displayed.
 
 Idea:
-- 
+-
 */
 
 
@@ -24,13 +24,14 @@ let answerBtn2 = document.querySelector("#answer2");
 let answerBtn3 = document.querySelector("#answer3");
 let answerBtn4 = document.querySelector("#answer4");
 
-// Arrays 
+// Arrays
 let questions = [
     {
         question: "What is the capital of Minnesota",
         answer1: "Saint Paul",
         answer2: "Edina",
         answer3: "Minneapolis",
+        answer4: "Richfield",
         correct: "Saint Paul"
     },
     {
@@ -38,77 +39,88 @@ let questions = [
         answer1: "Land of 10,000 lakes.",
         answer2: "Land of the America's Dairyland.",
         answer3: "Land of the Free.",
+        answer4: "Land of the Dead",
         correct: "Land of 10,000 lakes."
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What year did Minnesota become a state?",
+        answer1: "1858",
+        answer2: "2022",
+        answer3: "1942",
+        answer4: "1776",
+        correct: "1858"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What number state is Minnesota to the union?",
+        answer1: "50",
+        answer2: "10",
+        answer3: "32",
+        answer4: "41",
+        correct: "32"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is the largest city in Minnesota",
+        answer1: "Saint Paul",
+        answer2: "Minneapolis",
+        answer3: "Duluth",
+        answer4: "St. Cloud",
+        correct: "Minneapolis"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is the Minnesota's NFL team called?",
+        answer1: "Senators",
+        answer2: "Twins",
+        answer3: "Packers",
+        answer4: "Vikings",
+        correct: "Vikings"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is the name of Minnesota's first state park?",
+        answer1: "Fort Snelling State Park",
+        answer2: "Itasca State Park",
+        answer3: "Old Mill State Park",
+        answer4: "Beaver Creek Valley State Park",
+        correct: "Itasca State Park"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is the largest River running through Minnesota?",
+        answer1: "The Mississippi River",
+        answer2: "The Missouri River",
+        answer3: "The Arkansas River",
+        answer4: "The Illinois River",
+        correct: "The Mississippi River"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is Minnesota's state bird?",
+        answer1: "The Yellowhammer",
+        answer2: "The American Robin",
+        answer3: "The Northern Mockingbird",
+        answer4: "The Common Loon",
+        correct: "The Common Loon"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is Minnesota's state fish?",
+        answer1: "The Walleye",
+        answer2: "The Largemouth Bass",
+        answer3: "The White Crappie",
+        answer4: "The Cod",
+        correct: "The Walleye"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What does Minnesota's name stand for in Dakota?",
+        answer1: "Clear Blue Water",
+        answer2: "White Water",
+        answer3: "Curling Water",
+        answer4: "Big Water",
+        correct: "Clear Blue Water"
     },
     {
-        question: "",
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        correct: ""
+        question: "What is the Northernmost point of Minnesota?",
+        answer1: "Angle Inlet",
+        answer2: "Duluth",
+        answer3: "Ely",
+        answer4: "Bemidji ",
+        correct: "Angle Inlet"
     }
 ];
 
@@ -133,49 +145,32 @@ function timer() {
     }, 1000);
 }
 
-function theGame() {
-    timer();
-    for (let x = 0; x < questions.length; x++)
-    {
-        questionsEl.textContent = questions[x].question;
-        document.createElement("li")
-        document.getElementById("answer1") = questions[x].textContent.answer1;
-        document.getElementById("answer2") = questions[x].textContent.answer2;
-        document.getElementById("answer3") = questions[x].textContent.answer3;
-        document.getElementById("answer4") = questions[x].textContent.answer4;
-        let correct = 0;
-        answerBtn1.addEventListener("click", function(){
-            if (answer1 === questions.correct)
-            {
-                correct++;
-            }
-            return correct;
-        })
-        answerBtn2.addEventListener("click", function(){
-            if (answer2 === questions.correct)
-            {
-                correct++;
-            }
-            return correct;
-        })
-        answerBtn3.addEventListener("click", function(){
-            if (answer3 === questions.correct)
-            {
-                correct++;
-            }
-            return correct;
-        })
-        answerBtn4.addEventListener("click", function(){
-            if (answer4 === questions.correct)
-            {
-                correct++;
-            }
-            return correct;
-        })
-    }
-    
-    endGame();
-    return correct;
+
+function evalAnswer(event) {
+    console.log(event.target)
+    //
+    //take in eventListener and will determine if btn pressed is correct with an IF statement?
 }
 
-startBtn.addEventListener("click", theGame);
+
+function theGame() {
+        questionsEl.textContent = questions[x].question;
+        answerBtn1.textContent = questions[x].answer1;
+        answerBtn2.textContent = questions[x].answer2;
+        answerBtn3.textContent = questions[x].answer3;
+        answerBtn4.textContent = questions[x].answer4;
+        answerBtn1.addEventListener("click", evalAnswer)
+        answerBtn2.addEventListener("click", evalAnswer)
+        answerBtn3.addEventListener("click", evalAnswer)
+        answerBtn4.addEventListener("click", evalAnswer)
+    endGame();
+}
+
+
+function startGame() {
+    timer();
+    theGame();
+}
+
+startBtn.addEventListener("click", startGame);
+
