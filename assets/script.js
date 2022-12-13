@@ -1,29 +1,18 @@
-/* Quiz game
-1. To start game need to create an listener event.
-2. Once the event is trigger it'll run the startGame function.
-3. Inside the startGame function it should change the display of the screen from the default starter to displaying questions, which should also start the startTimer function.
-4. With 1 or 4 listener events inside each questions asked it'll run a findAnswer function to determine if answer selected was correct or incorrect.
-5. After an answer is selected regardless if correct of incorrect it'll store the variable of correct or incorrect and proceed displaying the next question until all 8 have been displayed.
-6. Which when it'll change screen and trigger the endGame function which will change screen from the questionnaire to results of how many correct over amount of questions ie. x/8.
-6a. If timer was to run out it'll change screen by triggering the endGame function too with amount of questions answered correctly over amount of questions that should've been displayed.
-
-Idea:
--
-*/
-
-
-
-// Var elements
+// Elements
 let scoresEl = document.querySelector("#scores");
 let timerEl = document.querySelector("#time");
 let questionsEl = document.querySelector(".questions");
 let startBtn = document.querySelector("#start");
-let answerBtn = document.querySelector(".answers");
 let answerBtn1 = document.querySelector("#answer1");
 let answerBtn2 = document.querySelector("#answer2");
 let answerBtn3 = document.querySelector("#answer3");
 let answerBtn4 = document.querySelector("#answer4");
-
+let theName = document.getElementById("name");
+let SubmitBtn = document.getElementById("Submit");
+let correct = 0;
+let questDis = 0;
+let secondsLeft = 60;
+ 
 // Arrays
 let questions = [
     {
@@ -123,54 +112,70 @@ let questions = [
         correct: "Angle Inlet"
     }
 ];
-
+ 
+ 
 // Functions
-
+ 
+ 
 function endGame() {
-    questionsEl.textContent = "Game Over!"
-    var scores = theGame();
-    var scoresEl = document.querySelector("#highScores");
-    scoresEl.textContent = scores;
+    questionsEl.textContent = "Recent Attempts";
+    let scores = correct;
+    let scoresEl = document.getElementById("scores");
+    scoresEl.textContent = scores + " correct";
+    timerEl.textContent = "";
 }
-
+ 
+ 
 function timer() {
-    let secondsLeft = 60;
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = "Time: " + secondsLeft + " seconds remaining.";
-        if (secondsLeft === 0) {
+        if (secondsLeft <= 0) {
             clearInterval(timerInterval);
             endGame();
         }
     }, 1000);
 }
-
-
+ 
+ 
 function evalAnswer(event) {
-    console.log(event.target)
-    //
-    //take in eventListener and will determine if btn pressed is correct with an IF statement?
+    if (questions[questDis].correct === event.target.textContent){
+        correct++;
+    }
+    else {
+        secondsLeft = secondsLeft - 10;
+    }
+    questDis++;
+    if (questDis === questions.length)
+    {
+        endGame();
+    }
+    else {
+        theGame();
+    }
 }
-
-
+ 
+ 
 function theGame() {
-        questionsEl.textContent = questions[x].question;
-        answerBtn1.textContent = questions[x].answer1;
-        answerBtn2.textContent = questions[x].answer2;
-        answerBtn3.textContent = questions[x].answer3;
-        answerBtn4.textContent = questions[x].answer4;
-        answerBtn1.addEventListener("click", evalAnswer)
-        answerBtn2.addEventListener("click", evalAnswer)
-        answerBtn3.addEventListener("click", evalAnswer)
-        answerBtn4.addEventListener("click", evalAnswer)
-    endGame();
+    questionsEl.textContent = questions[questDis].question;
+    answerBtn1.textContent = questions[questDis].answer1;
+    answerBtn2.textContent = questions[questDis].answer2;
+    answerBtn3.textContent = questions[questDis].answer3;
+    answerBtn4.textContent = questions[questDis].answer4;
 }
-
-
+ 
+ 
 function startGame() {
-    timer();
-    theGame();
+    timer()
+    theGame()
 }
-
+ 
+ 
 startBtn.addEventListener("click", startGame);
-
+answerBtn1.addEventListener("click", evalAnswer);
+answerBtn2.addEventListener("click", evalAnswer);
+answerBtn3.addEventListener("click", evalAnswer);
+answerBtn4.addEventListener("click", evalAnswer);
+SubmitBtn.addEventListener("click", function(){
+    answerBtn1.textContent = theName;
+});
