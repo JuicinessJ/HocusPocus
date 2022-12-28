@@ -7,14 +7,29 @@
 }
 
 #header {
-    
+    text-align: center;
 }
 
-.questions {
-
+button {
+    display: block;
+    width: 100px;
+    margin: 10px;
 }
 
-.answers {
+#questions {
+    display: none;
+}
 
+
+#start {
+    margin: auto;
+}
+
+#name {
+    display: none;
+}
+
+#submit {
+    display: none;
 }
 

@@ -3,16 +3,17 @@ let scoresEl = document.querySelector("#scores");
 let timerEl = document.querySelector("#time");
 let questionsEl = document.querySelector(".questions");
 let startBtn = document.querySelector("#start");
+let answers = document.querySelector('.answers')
 let answerBtn1 = document.querySelector("#answer1");
 let answerBtn2 = document.querySelector("#answer2");
 let answerBtn3 = document.querySelector("#answer3");
 let answerBtn4 = document.querySelector("#answer4");
 let theName = document.getElementById("name");
-let SubmitBtn = document.getElementById("Submit");
+let submitBtn = document.getElementById('submit');
 let correct = 0;
 let questDis = 0;
 let secondsLeft = 60;
- 
+
 // Arrays
 let questions = [
     {
@@ -112,20 +113,37 @@ let questions = [
         correct: "Angle Inlet"
     }
 ];
- 
- 
+
+
 // Functions
- 
- 
+
+function submit() {
+    //store name and displays name in a box with amount correct.
+    let points = localStorage.getItem('highScores');
+    let names = localStorage.setItem('recentAttempts', theName);
+    document.createElement('li').textContent(names + highScores);
+    /*hides input box then display name by either creating a new list element or by using an existing li elements 
+    which should display name with score beside. ie ("name" + "score") */
+
+
+}
+
+
 function endGame() {
-    questionsEl.textContent = "Recent Attempts";
     let scores = correct;
     let scoresEl = document.getElementById("scores");
     scoresEl.textContent = scores + " correct";
     timerEl.textContent = "";
+    localStorage.setItem('highScores', scores);
+    document.querySelector('#questions').style.display = 'none';
+    document.getElementById('name').style.display = 'block';
+    submitBtn.style.display = 'block';
+    
+    //show submit button
+    //displays an input box for name
 }
- 
- 
+
+
 function timer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
@@ -136,8 +154,8 @@ function timer() {
         }
     }, 1000);
 }
- 
- 
+
+
 function evalAnswer(event) {
     if (questions[questDis].correct === event.target.textContent){
         correct++;
@@ -154,8 +172,8 @@ function evalAnswer(event) {
         theGame();
     }
 }
- 
- 
+
+
 function theGame() {
     questionsEl.textContent = questions[questDis].question;
     answerBtn1.textContent = questions[questDis].answer1;
@@ -163,19 +181,34 @@ function theGame() {
     answerBtn3.textContent = questions[questDis].answer3;
     answerBtn4.textContent = questions[questDis].answer4;
 }
- 
- 
+
+
 function startGame() {
     timer()
     theGame()
+    document.querySelector('#questions').style.display = 'block';
+    startBtn.style.display = 'none';
 }
- 
- 
+
+
 startBtn.addEventListener("click", startGame);
 answerBtn1.addEventListener("click", evalAnswer);
 answerBtn2.addEventListener("click", evalAnswer);
 answerBtn3.addEventListener("click", evalAnswer);
 answerBtn4.addEventListener("click", evalAnswer);
-SubmitBtn.addEventListener("click", function(){
-    answerBtn1.textContent = theName;
-});
+submitBtn.addEventListener("click", submit);
+
+// regular javascript object
+// var highScores = JSON.parse(localStorage.getItem(highScore))
+// var highScores = {
+//     jb: "35",
+//     zx: "77"
+// }
+
+// JSON.stringify(highScores) version for browsers
+// var highScores = {
+//     "jb": "35",
+//     "zx": "77"
+// }
+
+// console.log(highScores.jb)
