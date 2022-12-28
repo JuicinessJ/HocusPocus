@@ -1,5 +1,4 @@
 // Elements
-let scoresEl = document.querySelector("#scores");
 let timerEl = document.querySelector("#time");
 let questionsEl = document.querySelector(".questions");
 let startBtn = document.querySelector("#start");
@@ -10,9 +9,13 @@ let answerBtn3 = document.querySelector("#answer3");
 let answerBtn4 = document.querySelector("#answer4");
 let theName = document.getElementById("name");
 let submitBtn = document.getElementById('submit');
+let scoresEl = document.getElementById("scores");
 let correct = 0;
 let questDis = 0;
 let secondsLeft = 60;
+let attempts = 0;
+let attemptsPoints = [];
+let attemptsNames = [];
 
 // Arrays
 let questions = [
@@ -118,29 +121,56 @@ let questions = [
 // Functions
 
 function submit() {
+    //hides input box and submitBtn
+    theName.style.display = 'none';
+    submitBtn.style.display = 'none';
+
     //store name and displays name in a box with amount correct.
+    localStorage.setItem('recentAttempts', theName);
     let points = localStorage.getItem('highScores');
-    let names = localStorage.setItem('recentAttempts', theName);
-    document.createElement('li').textContent(names + highScores);
-    /*hides input box then display name by either creating a new list element or by using an existing li elements 
-    which should display name with score beside. ie ("name" + "score") */
+    let names = localStorage.getItem('recentAttempts');
 
+    /*saves attempts and name inside an array, idea is to somehow compute and find the largest value inside the array.
+    which inturn should find the position inside that array to pair with name in the same position.*/
+    attemptsPoints.push(points);
+    attemptsNames.push(names);
+    
+    //sort by highest
+    let highest = [];
+    for (let x = 0; x <= attemptsPoints.length; x++) {
+        for (let y = 0; y <= attemptsPoints.length; y++) {
+            if (highest < attemptsPoints[y]) {
+                highest[x] = attemptsPoints[y];
+            }
+        }
+    }
+    //or
+    attemptsPoints.sort(function(a, b) {return b-a});
 
+    //Displays text, name and points.
+    questionsEl.textContent = "Recent Attempts";
+    document.createElement('li').textContent = //the name + ": " + the score;
+
+    //marks for attempts done. Only needed if want to keep displaying name to a minium
+    attempts++;
+
+    //issue ran into, Need to figure out if displaying name matter because when sorting attemptsPoints everything will run fine 
+    //But matching the sorted scores to attemptsName will run into an issue assuming names will be different. 
+    //Since you can not sort name unless I was to pair each name and points together
 }
 
 
 function endGame() {
     let scores = correct;
-    let scoresEl = document.getElementById("scores");
     scoresEl.textContent = scores + " correct";
     timerEl.textContent = "";
     localStorage.setItem('highScores', scores);
     document.querySelector('#questions').style.display = 'none';
-    document.getElementById('name').style.display = 'block';
-    submitBtn.style.display = 'block';
-    
-    //show submit button
     //displays an input box for name
+    theName.style.display = 'block';
+
+    //show submit button
+    submitBtn.style.display = 'block';
 }
 
 
