@@ -8,19 +8,29 @@ let answerBtn2 = document.querySelector("#answer2");
 let answerBtn3 = document.querySelector("#answer3");
 let answerBtn4 = document.querySelector("#answer4");
 let theName = document.getElementById("name");
-let submitBtn = document.getElementById('submit');
 let scoresEl = document.getElementById("scores");
 let correct = 0;
 let questDis = 0;
 let secondsLeft = 60;
-let attempts = 0;
-let attemptsPoints = [];
-let attemptsNames = [];
+let attempts = [
+    {
+        names: "JK",
+        points: "3"
+    },
+    {
+        names: "BA",
+        points: "5"
+    },
+    {
+        names: "CA",
+        points: "10"
+    }
+];
 
 // Arrays
 let questions = [
     {
-        question: "What is the capital of Minnesota",
+        question: "What is the capital of Minnesota?",
         answer1: "Saint Paul",
         answer2: "Edina",
         answer3: "Minneapolis",
@@ -120,57 +130,67 @@ let questions = [
 
 // Functions
 
-function submit() {
-    //hides input box and submitBtn
-    theName.style.display = 'none';
-    submitBtn.style.display = 'none';
-
-    //store name and displays name in a box with amount correct.
-    localStorage.setItem('recentAttempts', theName);
-    let points = localStorage.getItem('highScores');
-    let names = localStorage.getItem('recentAttempts');
-
-    /*saves attempts and name inside an array, idea is to somehow compute and find the largest value inside the array.
-    which inturn should find the position inside that array to pair with name in the same position.*/
-    attemptsPoints.push(points);
-    attemptsNames.push(names);
-    
+    // you can use attempts to populate the high scores div
+    //Need to create an object arr to put attempts of names and points into. 
+    //Use a more efficient sorting method.
+    //Display name and points by order of highest to lowest score.
+    // attempts = [
+    //     {
+    //         "initials": "LL",
+    //         "score": "7"
+    //     },
+    //     {
+    //         "initials": "CC",
+    //         "score": "3"
+    //     }
+    // ]
+    // attemptsNames = ["JK","LL","cc"]
+    // attemptsPoints = ["7","3","4"]
     //sort by highest
-    let highest = [];
-    for (let x = 0; x <= attemptsPoints.length; x++) {
-        for (let y = 0; y <= attemptsPoints.length; y++) {
-            if (highest < attemptsPoints[y]) {
-                highest[x] = attemptsPoints[y];
-            }
-        }
-    }
-    //or
-    attemptsPoints.sort(function(a, b) {return b-a});
+    //let highest = [];
+    // for (let x = 0; x <= attemptsPoints.length; x++) {
+    //     for (let y = 0; y <= attemptsPoints.length; y++) {
+    //         if (highest < attemptsPoints[y]) {
+    //             highest[x] = attemptsPoints[y];
+    //         }
+    //     }
+    // }
+
+    //use this with an object arr.
+    //attemptsPoints.sort(function(a, b) {return b-a});
 
     //Displays text, name and points.
-    questionsEl.textContent = "Recent Attempts";
-    document.createElement('li').textContent = //the name + ": " + the score;
-
-    //marks for attempts done. Only needed if want to keep displaying name to a minium
-    attempts++;
-
-    //issue ran into, Need to figure out if displaying name matter because when sorting attemptsPoints everything will run fine 
-    //But matching the sorted scores to attemptsName will run into an issue assuming names will be different. 
-    //Since you can not sort name unless I was to pair each name and points together
-}
+    // questionsEl.textContent = "Recent Attempts";
+    // document.createElement('li').textContent = //the name + ": " + the score;
 
 
 function endGame() {
     let scores = correct;
-    scoresEl.textContent = scores + " correct";
     timerEl.textContent = "";
-    localStorage.setItem('highScores', scores);
+    localStorage.setItem('score', scores);
     document.querySelector('#questions').style.display = 'none';
-    //displays an input box for name
-    theName.style.display = 'block';
+    
+    // obj arr
+    let attempts = JSON.parse(localStorage.getItem("highScores")) || [];
+    attempts.push(
+        {
+            names: theName.value,
+            points: scores
+        }
+    );
+    localStorage.setItem("highScores", JSON.stringify(attempts));
 
-    //show submit button
-    submitBtn.style.display = 'block';
+    //sort score
+    attempts.sort((a, b) => b.points - a.points);
+    console.log(attempts);
+
+
+    //display score and name
+
+
+    //restart
+    startBtn.style.display = 'block';
+    theName.style.display = 'block';
 }
 
 
@@ -216,7 +236,9 @@ function theGame() {
 function startGame() {
     timer()
     theGame()
+    localStorage.setItem('name', theName.value);
     document.querySelector('#questions').style.display = 'block';
+    theName.style.display = 'none';
     startBtn.style.display = 'none';
 }
 
@@ -226,7 +248,6 @@ answerBtn1.addEventListener("click", evalAnswer);
 answerBtn2.addEventListener("click", evalAnswer);
 answerBtn3.addEventListener("click", evalAnswer);
 answerBtn4.addEventListener("click", evalAnswer);
-submitBtn.addEventListener("click", submit);
 
 // regular javascript object
 // var highScores = JSON.parse(localStorage.getItem(highScore))

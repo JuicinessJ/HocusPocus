@@ -26,7 +26,9 @@ button {
 }
 
 #name {
-    display: none;
+    display: block;
+    text-align: center;
+    margin: auto;
 }
 
 #submit {
