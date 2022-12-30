@@ -12,20 +12,7 @@ let scoresEl = document.getElementById("scores");
 let correct = 0;
 let questDis = 0;
 let secondsLeft = 60;
-let attempts = [
-    {
-        names: "JK",
-        points: "3"
-    },
-    {
-        names: "BA",
-        points: "5"
-    },
-    {
-        names: "CA",
-        points: "10"
-    }
-];
+let attempts = [];
 
 // Arrays
 let questions = [
@@ -234,6 +221,9 @@ function theGame() {
 
 
 function startGame() {
+    questDis = 0;
+    correct = 0;
+    secondsLeft = 60;
     timer()
     theGame()
     localStorage.setItem('name', theName.value);
