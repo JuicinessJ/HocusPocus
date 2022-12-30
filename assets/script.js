@@ -114,47 +114,16 @@ let questions = [
     }
 ];
 
+//Misc
+// let para = document.createElement('p').setAttribute('id', 'scores-id');
+// para.innerHTML = "High Scores: ";
+// document.body.appendChild(para);
 
 // Functions
-
-    // you can use attempts to populate the high scores div
-    //Need to create an object arr to put attempts of names and points into. 
-    //Use a more efficient sorting method.
-    //Display name and points by order of highest to lowest score.
-    // attempts = [
-    //     {
-    //         "initials": "LL",
-    //         "score": "7"
-    //     },
-    //     {
-    //         "initials": "CC",
-    //         "score": "3"
-    //     }
-    // ]
-    // attemptsNames = ["JK","LL","cc"]
-    // attemptsPoints = ["7","3","4"]
-    //sort by highest
-    //let highest = [];
-    // for (let x = 0; x <= attemptsPoints.length; x++) {
-    //     for (let y = 0; y <= attemptsPoints.length; y++) {
-    //         if (highest < attemptsPoints[y]) {
-    //             highest[x] = attemptsPoints[y];
-    //         }
-    //     }
-    // }
-
-    //use this with an object arr.
-    //attemptsPoints.sort(function(a, b) {return b-a});
-
-    //Displays text, name and points.
-    // questionsEl.textContent = "Recent Attempts";
-    // document.createElement('li').textContent = //the name + ": " + the score;
-
 
 function endGame() {
     let scores = correct;
     timerEl.textContent = "";
-    localStorage.setItem('score', scores);
     document.querySelector('#questions').style.display = 'none';
     
     // obj arr
@@ -169,10 +138,20 @@ function endGame() {
 
     //sort score
     attempts.sort((a, b) => b.points - a.points);
-    console.log(attempts);
 
+    console.log(attempts.names);
+    console.log(attempts.points);
 
-    //display score and name
+    //Displays text, name and points.
+    let para = document.createElement('p');
+    para.innerHTML = "High Score"
+    let list = document.createElement('li');
+    for (let x = 0; x < attempts.length; x++)
+    {
+        list.innerHTML = attempts[x].names + ": " + attempts[x].points;
+    }
+    document.body.appendChild(list);
+    document.querySelector('#score-id').style.display = 'block';
 
 
     //restart
@@ -203,6 +182,7 @@ function evalAnswer(event) {
     questDis++;
     if (questDis === questions.length)
     {
+        secondsLeft = 0;
         endGame();
     }
     else {
@@ -224,12 +204,12 @@ function startGame() {
     questDis = 0;
     correct = 0;
     secondsLeft = 60;
-    timer()
-    theGame()
     localStorage.setItem('name', theName.value);
     document.querySelector('#questions').style.display = 'block';
     theName.style.display = 'none';
     startBtn.style.display = 'none';
+    timer()
+    theGame()
 }
 
 
