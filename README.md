@@ -13,6 +13,7 @@ The motivation of this was to develop a test to see how "Minnesotan" the taker i
 - [Credits] (#credits)
 - [License] (#license)
 - [Feature] (#feature)
+- [Issue] (#issue)
 
 # Installation
 
