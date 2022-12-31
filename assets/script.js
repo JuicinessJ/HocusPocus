@@ -9,6 +9,10 @@ let answerBtn3 = document.querySelector("#answer3");
 let answerBtn4 = document.querySelector("#answer4");
 let theName = document.getElementById("name");
 let scoresEl = document.getElementById("scores");
+let board = document.getElementById('scoreBoard');
+let top1 = document.getElementById('n1');
+let top2 = document.getElementById('n2');
+let top3 = document.getElementById('n3');
 let correct = 0;
 let questDis = 0;
 let secondsLeft = 60;
@@ -114,10 +118,6 @@ let questions = [
     }
 ];
 
-//Misc
-// let para = document.createElement('p').setAttribute('id', 'scores-id');
-// para.innerHTML = "High Scores: ";
-// document.body.appendChild(para);
 
 // Functions
 
@@ -139,21 +139,17 @@ function endGame() {
     //sort score
     attempts.sort((a, b) => b.points - a.points);
 
-    console.log(attempts.names);
-    console.log(attempts.points);
+    console.log(attempts);
 
-    //Displays text, name and points.
-    let para = document.createElement('p');
-    para.innerHTML = "High Score"
-    let list = document.createElement('li');
-    for (let x = 0; x < attempts.length; x++)
+    //scoreboard
+    board.style.display = 'block';
+    if (attempts.length >= 3) //should only run if there are in total of 3 attempts made.
     {
-        list.innerHTML = attempts[x].names + ": " + attempts[x].points;
+        top1.textContent = attempts[0].names + ": " + attempts[0].points;
+        top2.textContent = attempts[1].names + ": " + attempts[1].points;
+        top3.textContent = attempts[2].names + ": " + attempts[2].points;
     }
-    document.body.appendChild(list);
-    document.querySelector('#score-id').style.display = 'block';
-
-
+    
     //restart
     startBtn.style.display = 'block';
     theName.style.display = 'block';
@@ -210,6 +206,7 @@ function startGame() {
     startBtn.style.display = 'none';
     timer()
     theGame()
+    board.style.display = 'none';
 }
 
 
@@ -218,18 +215,3 @@ answerBtn1.addEventListener("click", evalAnswer);
 answerBtn2.addEventListener("click", evalAnswer);
 answerBtn3.addEventListener("click", evalAnswer);
 answerBtn4.addEventListener("click", evalAnswer);
-
-// regular javascript object
-// var highScores = JSON.parse(localStorage.getItem(highScore))
-// var highScores = {
-//     jb: "35",
-//     zx: "77"
-// }
-
-// JSON.stringify(highScores) version for browsers
-// var highScores = {
-//     "jb": "35",
-//     "zx": "77"
-// }
-
-// console.log(highScores.jb)
