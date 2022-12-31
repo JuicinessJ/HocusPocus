@@ -20,7 +20,9 @@ Open Github > Hit Green "Code" Button > Inside the Clone drop down box select me
 
 # Usage
 
-![group](./assets/Capture.PNG)
+![group](./assets/Start.PNG)
+![group](./assets/Question.PNG)
+![group](./assets/Score.PNG)
 
 # Credits
 
@@ -53,3 +55,8 @@ SOFTWARE.
 # Feature
 
 A Quiz game about Minnesota.
+
+# Issue
+
+For this to run smoothly would require to clear local storage after or before using.
+There may be a chance of duplication of attempts found no fix yet, Was going to implement a duplication finder but decided not to.
